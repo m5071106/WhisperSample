@@ -1,0 +1,11 @@
+■ homebrew へのパスを通す
+export PATH="/opt/homebrew/bin/:$PATH"
+
+pip3 install -U openai-whisper
+
+brew install ffmpeg
+
+pip3 install ffmpeg-python
+
+■ 参考サイト
+    - [x] https://chmod774.com/whisper-python/
