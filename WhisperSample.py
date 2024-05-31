@@ -13,45 +13,56 @@
 # 音声認識対象のファイルをsourceディレクトリに格納(拡張子はm4aまたはmp3など、ffmpegで変換可能なもの[プログラム内で指定]
 import whisper
 import os
+import sys
 
-# 対象拡張子
-extensions = ('mp3','m4a')
-modelarray = ['base', 'small']  # Whisperモデルの配列. 右記から変換したい形式を指定 ['tiny', 'base', 'small', 'medium', 'large']
-resultarray = []
-resultfilearray = []
+def sound_transcription(modelarray=['base']):
+    # 対象拡張子の読み込み
+    with open('extensions.txt', 'r') as file:
+        extensions = file.read().splitlines()
 
-# 入出力ディレクトリのパス
-source_dir = './source'
-result_dir = './result'
-# sourceディレクトリ内のファイル一覧を取得
-file_list = os.listdir(source_dir)
+    # 結果出力配列
+    resultarray = []
+    resultfilearray = []
 
-# 認識対象の拡張子のファイルのみを抽出し、変換を行う
-for filename in file_list:
-    if any(extension in filename for extension in extensions):
-        print(f'{filename}の音声認識を開始')
-        # modelarray分繰り返す
-        for currentmodel in modelarray:
-            print(f'Using the {currentmodel} model')
-            # Whisperモデルをロードする
-            model = whisper.load_model(currentmodel)
-            # 変換
-            result = model.transcribe(f'{source_dir}/{filename}')
-            # 結果出力配列に変換後データを追加
-            resultarray.append(f'----------- {filename}' + '-' + f'{currentmodel} -----------' + '\n' + result['text'])
-            # 変換後のファイル名を作成
-            converted_filename = filename
-            for extension in extensions:
-                converted_filename = converted_filename.replace('.' + extension, '')
-            # 結果出力配列に変換後のファイル名を追加
-            resultfilearray.append(f'{converted_filename}-{currentmodel}.txt')
+    # 入出力ディレクトリのパス
+    source_dir = './source'
+    result_dir = './result'
+    # sourceディレクトリ内のファイル一覧を取得
+    file_list = os.listdir(source_dir)
 
-# 結果出力
-index = 0
-for i in resultarray:
-    print(resultfilearray[index])
-    print(i)
-    # resultフォルダ内にファイルを作成し、結果を書き込む(ファイル名-Whisperモデル名.txt)
-    with open(f'{result_dir}/{resultfilearray[index]}', mode='w+') as f:
-        f.write(i)
-    index += 1
+    # 認識対象の拡張子のファイルのみを抽出し、変換を行う
+    for filename in file_list:
+        if any(extension in filename for extension in extensions):
+            print(f'{filename}の音声認識を開始')
+            # modelarray分繰り返す
+            for currentmodel in modelarray:
+                print(f'Using the {currentmodel} model')
+                # Whisperモデルをロードする
+                model = whisper.load_model(currentmodel)
+                # 変換
+                result = model.transcribe(f'{source_dir}/{filename}')
+                # 結果出力配列に変換後データを追加
+                resultarray.append(result['text'])
+                # 変換後のファイル名を作成
+                converted_filename = filename
+                for extension in extensions:
+                    converted_filename = converted_filename.replace('.' + extension, '')
+                # 結果出力配列に変換後のファイル名を追加
+                resultfilearray.append(f'{converted_filename}-{currentmodel}.txt')
+
+    # 結果出力
+    index = 0
+    for i in resultarray:
+        print(resultfilearray[index])
+        print(i)
+        # resultフォルダ内にファイルを作成し、結果を書き込む(ファイル名-Whisperモデル名.txt)
+        with open(f'{result_dir}/{resultfilearray[index]}', mode='w+') as f:
+            f.write(i)
+        index += 1
+
+if __name__ == '__main__':
+    # 引数があれば、そのモデルのみを対象とする. なければ、base, smallのモデルを対象とする
+    modelarray = sys.argv[1:] if len(sys.argv) > 1 else ['base', 'small']
+    valid_models = ['tiny', 'base', 'small', 'medium', 'large']
+    modelarray = [model for model in modelarray if model in valid_models]
+    sound_transcription(modelarray)
