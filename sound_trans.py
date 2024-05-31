@@ -14,8 +14,10 @@
 import whisper
 import os
 import sys
+import datetime
 
-def sound_transcription(modelarray=['base']):
+
+def sound_transcription(modelarray=['small']):
     # 対象拡張子の読み込み
     with open('extensions.txt', 'r') as file:
         extensions = file.read().splitlines()
@@ -27,6 +29,7 @@ def sound_transcription(modelarray=['base']):
     # 入出力ディレクトリのパス
     source_dir = './source'
     result_dir = './result'
+    backup_dir = './backup'
     # sourceディレクトリ内のファイル一覧を取得
     file_list = os.listdir(source_dir)
 
@@ -34,6 +37,8 @@ def sound_transcription(modelarray=['base']):
     for filename in file_list:
         if any(extension in filename for extension in extensions):
             print(f'{filename}の音声認識を開始')
+            # 変換時刻を取得
+            datetimenow = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
             # modelarray分繰り返す
             for currentmodel in modelarray:
                 print(f'Using the {currentmodel} model')
@@ -48,7 +53,12 @@ def sound_transcription(modelarray=['base']):
                 for extension in extensions:
                     converted_filename = converted_filename.replace('.' + extension, '')
                 # 結果出力配列に変換後のファイル名を追加
-                resultfilearray.append(f'{converted_filename}-{currentmodel}.txt')
+                resultfilearray.append(f'{converted_filename}_{currentmodel}_{datetimenow}.txt')
+
+            # 処理したファイルをバックアップディレクトリに移動
+            os.rename(f'{source_dir}/{filename}', f'{backup_dir}/{filename}')
+            # バックアップディレクトリに移動したファイルに年月日時分秒をつけてリネーム
+            os.rename(f'{backup_dir}/{filename}', f'{backup_dir}/{filename}.{datetimenow}')
 
     # 結果出力
     index = 0
