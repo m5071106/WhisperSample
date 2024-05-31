@@ -1,4 +1,4 @@
-## Whisper sample program with MacBook Pro 2023, m3, 16GB, macOS 14.5, Python 3.10.14
+## Whisper sample program with m3, macOS 14.5, Python 3.10.14
 
 ### 簡易版 (sound_trans.py をターミナルで実行する)
 
