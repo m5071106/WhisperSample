@@ -2,12 +2,30 @@
 <html>
 <head>
 <title>Whisper Sample Web</title>
+<style>
+  #processing {
+      color: red;
+  }
+</style>
 </head>
-<body>
+<body onload="init();">
 <h1>Whisper Sample Web</h1>
+<div id="processing">音声を解析しています。</div>
 <form method=post enctype=multipart/form-data>
+  <h4>音声ファイル</h4>
   <input type=file name=file>
-  <input type=submit value=変換>
+  <input type=submit value=変換 onclick="upload()">
+  <br />
+  <h4>モデル</h4>
+  <input type="radio" name="model" value="tiny"> Tiny
+  <input type="radio" name="model" value="base"> Base
+  <input type="radio" name="model" value="small"> Small
+  <input type="radio" name="model" value="medium" checked> Medium
+  <input type="radio" name="model" value="large"> Large
+
 </form>
+<script>
+  $JS$
+</script>
 </body>
 </html>

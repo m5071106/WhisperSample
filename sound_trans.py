@@ -60,19 +60,24 @@ def sound_transcription(modelarray=['small']):
             # バックアップディレクトリに移動したファイルに年月日時分秒をつけてリネーム
             os.rename(f'{backup_dir}/{filename}', f'{backup_dir}/{filename}.{datetimenow}')
 
-    # 結果出力
+    # 結果の書き込み
     index = 0
     for i in resultarray:
-        print(resultfilearray[index])
-        print(i)
         # resultフォルダ内にファイルを作成し、結果を書き込む(ファイル名-Whisperモデル名.txt)
         with open(f'{result_dir}/{resultfilearray[index]}', mode='w+') as f:
             f.write(i)
         index += 1
+    return resultfilearray, resultarray
 
 if __name__ == '__main__':
     # 引数があれば、そのモデルのみを対象とする. なければ、base, smallのモデルを対象とする
     modelarray = sys.argv[1:] if len(sys.argv) > 1 else ['base', 'small']
     valid_models = ['tiny', 'base', 'small', 'medium', 'large']
     modelarray = [model for model in modelarray if model in valid_models]
-    sound_transcription(modelarray)
+    resultfilearray, resultarray = sound_transcription(modelarray)
+    # 結果出力
+    index = 0
+    for i in resultarray:
+        print(resultfilearray[index])
+        print(i)
+        index += 1
