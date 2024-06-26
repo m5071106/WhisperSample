@@ -15,3 +15,19 @@
 3. http://[hostname]:5001/ でアクセスします。
 4. ファイルをアップロードし、モデルを選択後、変換ボタン選択で処理が始まります。
 5. 結果がWeb上に表記されます。./result/フォルダを別の静的webでディレクトリが見られるよう設定することで変換結果をダウンロードします。
+
+Install Log:
+Windows:
+  pip3 install -U openai-whisper
+  Install ffmpeg
+    https://taziku.co.jp/blog/windows-ffmpeg
+      https://github.com/BtbN/FFmpeg-Builds/releases
+        ffmpeg-master-latest-win640gpl.zip
+  pip3 install ffmpeg-python
+  pip3 install torch
+  pip3 install torchvision
+  pip3 install torchaudio
+  pip3 uninstall numpy # 2.0.0 is not acceptable
+  pip3 install numpy<2
+  
+  
