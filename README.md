@@ -16,8 +16,17 @@
 4. ファイルをアップロードし、モデルを選択後、変換ボタン選択で処理が始まります。
 5. 結果がWeb上に表記されます。./result/フォルダを別の静的webでディレクトリが見られるよう設定することで変換結果をダウンロードします。
 
-Install Log:
-Windows:
+Installation instructions:
+for macOS:
+  Install homebrew
+    https://brew.sh/ja/
+  brew install python@3.10
+  pip3 install -U openai-whisper
+  brew install ffmpeg
+  pip3 install ffmpeg-python
+for Ubuntu:
+
+for Windows:
   pip3 install -U openai-whisper
   Install ffmpeg
     https://taziku.co.jp/blog/windows-ffmpeg
