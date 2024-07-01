@@ -4,7 +4,7 @@
 
 #### CLI (sound_trans.py on terminal)
 
-1. Set sound source to `source` directory.
+1. Set sound source in `source` directory.
 2. Run `python3 sound_trans.py [model1] [model2] ...`
    Conversion will start with models that you indicated. (models are tiny, base, small, medium, or large)
 3. Conversion result is in the `result` directory.)
@@ -14,7 +14,7 @@
 
 1. Run `python3 front_web.py`
 1. Run browser and input `http://[hostname]:5001/` to address bar.
-1. Upload sound source from web, and start conversion.
+1. Upload sound source to web, and start conversion.
 1. Conversion result is on the Web.
 
 ### Installation instructions:
