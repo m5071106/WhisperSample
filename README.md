@@ -1,18 +1,21 @@
 ## Whisper sample program with m3, macOS 14.5, Python 3.10.14
 
-### 簡易版 (sound_trans.py をターミナルで実行する)
+### Directions
 
-1. sourceフォルダに音声ファイルを格納してください。対象拡張子はextensions.txtで制御します。
-1. python3 sound_trans.py [model1] [model2] ...
-   で変換を開始します。modelには、tiny, base, small, medium, large を指定します。並べた数だけ変換されます。
-1. resultフォルダに音声ファイル名+モデル名のテキストが格納されます。
+#### CLI (sound_trans.py on terminal)
 
-### Web版 (front_web.py をターミナルで実行後、Web Browser で http://[hostname]:5001/でアクセス)
+1. Set sound source to `source` directory.
+2. Run `python3 sound_trans.py [model1] [model2] ...`
+   Conversion will start with models that you indicated. (models are tiny, base, small, medium, or large)
+3. Conversion result is in the `result` directory.)
 
-1. python3 front_web.py でwebを起動します。サンプルはsmallモデルに限定しています。
-1. http://[hostname]:5001/ でアクセスします。
-1. ファイルをアップロードし、モデルを選択後、変換ボタン選択で処理が始まります。
-1. 結果がWeb上に表記されます。./result/フォルダを別の静的webでディレクトリが見られるよう設定することで変換結果をダウンロードします。
+
+#### GUI (Web) (`http://[hostname]:5001/`)
+
+1. Run `python3 front_web.py`
+1. Run browser and input `http://[hostname]:5001/` to address bar.
+1. Upload sound source from web, and start conversion.
+1. Conversion result is on the Web.
 
 ### Installation instructions:
 #### for macOS:
@@ -31,7 +34,7 @@
   1. pip3 install ffmpeg-python
   1. pip3 install -U openai-whisper
   1. sudo apt install ffmpeg (https://github.com/openai/whisper#)
-  1. pip3 --no-cache-dir install torch (通常だとkilledされる)
+  1. pip3 --no-cache-dir install torch (for avoiding process `killed` )
   1. pip3 install torchvision
 
 #### for Windows:
