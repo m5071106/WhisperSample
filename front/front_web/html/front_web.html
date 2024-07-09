@@ -1,22 +1,23 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<title>Whisper Sample Web</title>
-<style>
+  <meta charset="utf-8">
+  <title>Whisper Sample Web</title>
+  <style>
   #processing {
       color: red;
   }
-</style>
+  </style>
 </head>
 <body onload="init();">
 <h1>Whisper Sample Web</h1>
-<div id="processing">音声を解析しています。</div>
+<div id="processing">Convert sound data to text data...</div>
 <form method=post enctype=multipart/form-data>
-  <h4>音声ファイル</h4>
+  <h4>Select a sound source.</h4>
   <input type=file name=file>
-  <input type=submit value=変換 onclick="upload()">
+  <input type=submit value=Start onclick="upload()">
   <br />
-  <h4>モデル</h4>
+  <h4>Choose model:</h4>
   <input type="radio" name="model" value="tiny"> Tiny
   <input type="radio" name="model" value="base"> Base
   <input type="radio" name="model" value="small"> Small

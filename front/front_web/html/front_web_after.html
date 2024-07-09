@@ -20,11 +20,11 @@
 </head>
 <body>
 <h1>Whisper Sample Web</h1>
-解析結果を表示します。<br />
+Conversion result:<br />
 <div id="result">
     <table border="0" width="800px">
     <tr>
-    <th>解析結果</th>
+    <th>result</th>
     </tr>
     <tr>
     <td>$RESULT$</td>
@@ -32,17 +32,7 @@
     </table>
 <br />
 </div>
-下記URLで解析結果をダウンロードできます。<br />
-<a href="$FILELISTURL$">解析結果一覧</a><br />
-<table border="1">
-<tr>
-<th>ファイル名</th>
-</tr>
-<tr>
-<td>$FILENAME$</td>
-</tr>
-</table>
 <hr />
-<button onclick="window.location.href='http://$IPADDRESS$:5001/'">別の音声ファイルも解析する</button>
+<button onclick="window.location.href='http://$IPADDRESS$:5001/'">Back</button>
 </body>
 </html>

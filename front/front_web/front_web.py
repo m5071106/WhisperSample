@@ -7,15 +7,22 @@ from werkzeug.utils import secure_filename
 
 import os
 import socket
-import urllib.request
 
-from sound_trans import sound_trans
+import sound_trans
 
 app = Flask(__name__)
-    
-UPLOAD_FOLDER = Path('./resources/source.txt').read_text().strip()
+
+# 現在のディレクトリを取得
+current_dir = os.path.dirname(__file__)
+
+UPLOAD_FOLDER = current_dir + '/' + Path(current_dir + '/resources/source.txt').read_text().strip()
+
+# UPLOAD_FOLDERが存在しない場合は作成
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
 # extensions.txtから拡張子を取得
-with open('./resources/extensions.txt', 'r') as file:
+with open(current_dir + '/resources/extensions.txt', 'r') as file:
     extensions = file.read()
     extensions = extensions.split('\n')
     ALLOWED_EXTENSIONS = set(extensions)
@@ -23,7 +30,7 @@ with open('./resources/extensions.txt', 'r') as file:
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # 解析結果一覧用URLを取得
-with open('./resources/filelisturl.txt', 'r') as file:
+with open(current_dir + '/resources/filelisturl.txt', 'r') as file:
     filelist_url = file.read()
     filelist_url = filelist_url.split('\n')[0]
 
@@ -66,7 +73,7 @@ def upload_file():
             resultfilearray, resultarray = sound_trans.sound_transcription(modelarray)
 
             # 変換後のWebページを表示
-            with open('./html/front_web_after.html', 'r') as file:
+            with open(current_dir + '/html/front_web_after.html', 'r') as file:
                 front_web_after_content = file.read()
             front_web_after_content = front_web_after_content.replace('$FILENAME$', resultfilearray[0])
             front_web_after_content = front_web_after_content.replace('$RESULT$', resultarray[0])
@@ -76,9 +83,9 @@ def upload_file():
             return front_web_after_content
 
     # 初期Webページを表示
-    with open('./html/front_web.html', 'r') as file:
+    with open(current_dir + '/html/front_web.html', 'r') as file:
         front_web_content = file.read()
-    with open('./js/front_web.js', 'r') as file:
+    with open(current_dir + '/js/front_web.js', 'r') as file:
         jscript = file.read()
     front_web_content = front_web_content.replace('$JS$', jscript)
     return front_web_content
