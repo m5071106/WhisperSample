@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<title>Whisper Sample Web</title>
+<style>
+    #result {
+    color: green;
+    }
+    table {
+    margin-top: 20px;
+    border: 1px solid black;
+    }
+    th {
+    padding: 5px;
+    }
+    td {
+    padding: 5px;
+    }
+</style>
+</head>
+<body>
+<h1>Whisper Sample Web</h1>
+Conversion result:<br />
+<div id="result">
+    <table border="0" width="800px">
+    <tr>
+    <th>result</th>
+    </tr>
+    <tr>
+    <td>$RESULT$</td>
+    </tr>
+    </table>
+<br />
+</div>
+<hr />
+<button onclick="window.location.href='http://$IPADDRESS$:5001/'">Back</button>
+</body>
+</html>
