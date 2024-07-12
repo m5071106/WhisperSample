@@ -13,7 +13,11 @@ def text_concater():
     resultarray = []
     resultfilearray = []
 
-    # replace_words.txtから改行区切りでreplace_wordsに格納
+    # 改行区切りの対象単語リストを取得
+    with open(current_dir + '/resources/append_returnwords.txt', mode='r', encoding='utf-8') as f:
+        append_returnwords = f.read().splitlines()
+
+    # 置換対象単語リストを取得
     with open(current_dir + '/resources/replace_words.txt', mode='r', encoding='utf-8') as f:
         replace_words = f.read().splitlines()
 
@@ -63,9 +67,14 @@ def text_concater():
         file_contents = f.read()
     result = file_contents.replace(' ', '')
 
-    # replace_wordsに含まれる単語の後ろに改行を追加
-    for word in replace_words:
+    # append_returnwordsに含まれる単語の後ろに改行を追加
+    for word in append_returnwords:
         result = result.replace(word, word + '\n')
+
+    # replace_wordsに含まれる単語を置換
+    for word in replace_words:
+        words = word.split(',')
+        result = result.replace(words[0], words[1])
 
     # 変換結果をファイルに書き込む
     with open(f'{result_dir}/result.txt', mode='w+', encoding='utf-8') as f:
